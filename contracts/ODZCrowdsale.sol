@@ -316,10 +316,10 @@ contract Crowdsale is Ownable {
 contract ODZCrowdsale is Ownable, Crowdsale, MintableToken {
     using SafeMath for uint256;
 
-    uint256 public ratePreIco  = 325;
-    uint256 public rateIco  = 250;
+    uint256 public ratePreIco  = 250;
+    uint256 public rateIco  = 200;
 
-    uint256 public weiMin = 0.005 ether;
+    uint256 public weiMin = 25 ether;
 
     mapping (address => uint256) public deposited;
 
@@ -329,14 +329,14 @@ contract ODZCrowdsale is Ownable, Crowdsale, MintableToken {
     uint256 public   fundTeam = 1275 * 10**5 * (10 ** uint256(decimals));
     uint256 public fundReserv = 5525 * 10**5 * (10 ** uint256(decimals));
 
-    uint256 limitPreIco = 3 * 10**7 * (10 ** uint256(decimals));
+    uint256 limitPreIco = 34 * 10**6 * (10 ** uint256(decimals));
 
     address public addressFundTeam   = 0x3939f99C5f8C9198c7D40E5880ee731F2F6395AC;
     address public addressFundReserv = 0xE6a4A7bd59989dA07417cDba8f6a4c29fd4732a3;
 
-    uint256 startTimePreIco = 1539561600; // Mon, 15 Oct 2018 00:00:00 GMT
-    uint256 endTimePreIco =   1546300799; // Mon, 31 Dec 2018 23:59:59 GMT
-    uint256 startTimeIco =    1546300800; // Tue, 01 Jan 2019 00:00:00 GMT
+    uint256 startTimePreIco = 1541044800; // 1 Nov 2018 
+    uint256 endTimePreIco =   1548892800; // 31 Jan 2019
+    uint256 startTimeIco =    1548997200; // 1 Feb 2019
 
     uint256 public countInvestor;
 
@@ -352,7 +352,6 @@ contract ODZCrowdsale is Ownable, Crowdsale, MintableToken {
     {
         require(_owner != address(0));
         owner = _owner;
-        //owner = msg.sender; // $$$ for test's
         transfersEnabled = true;
         mintingFinished = false;
         totalSupply = INITIAL_SUPPLY;
@@ -385,7 +384,6 @@ contract ODZCrowdsale is Ownable, Crowdsale, MintableToken {
 
     function getTotalAmountOfTokens(uint256 _weiAmount) internal returns (uint256) {
         uint256 currentDate = now;
-        //currentDate = 1539993600; // (20 Oct 2018) // $$$ for test's
         uint currentPeriod = 0;
         currentPeriod = getPeriod(currentDate);
         uint256 amountOfTokens = 0;
@@ -483,7 +481,6 @@ contract ODZCrowdsale is Ownable, Crowdsale, MintableToken {
 
     function setWeiMin(uint256 _value) public onlyOwner {
         require(_value > 0);
-        uint256 _oldValue = weiMin;
         weiMin = _value;
     }
 }
